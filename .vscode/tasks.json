@@ -1,0 +1,13 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Format with Biome",
+      "type": "shell",
+      "command": "npx biome format ${file}",
+      "problemMatcher": [],
+      "group": "build"
+    }
+  ]
+}
+

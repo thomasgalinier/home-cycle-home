@@ -34,6 +34,7 @@ export async function deleteZone(zoneId: string) {
   return response.json();
 }
 export async function updadteZone(zone: ZoneType) {
+  
   const response = await fetch(`${API_URL}/carte/update/${zone.id}`, {
     method: 'PUT',
     headers: {
@@ -43,5 +44,18 @@ export async function updadteZone(zone: ZoneType) {
     body: JSON.stringify(zone),
   });
   
+  return response.json();
+}
+
+export async function assignTechnicianToZone(zoneId: string, technicienId: string) {
+  const response = await fetch(`${API_URL}/carte/${zoneId}/assign-technician`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+    body: JSON.stringify({ technicienId }),
+  });
+
   return response.json();
 }

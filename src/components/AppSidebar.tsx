@@ -74,8 +74,8 @@ const navigationItems = [
 		icon: Map,
 	},
 	{
-		title: "Planing",
-		url: "/dashboard/planing",
+		title: "Planning",
+		url: "/planning",
 		icon: Calendar,
 	},
 	{
@@ -85,12 +85,12 @@ const navigationItems = [
 		children: [
 			{
 				title: "Liste des forfaits",
-				url: "/dashboard/forfait",
+				url: "/forfait",
 				icon: EuroIcon,
 			},
 			{
 				title: "Créer un forfait",
-				url: "/dashboard/forfait/create",
+				url: "/forfait/create",
 				icon: EuroIcon,
 			},
 		],

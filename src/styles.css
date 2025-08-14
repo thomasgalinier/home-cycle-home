@@ -335,3 +335,11 @@ code {
     var(--tracking-normal);
   }
 }
+.sr-only {
+  display: none;
+}
+
+/* Évènement fullCalendar */
+.fc-timegrid-slot {
+  height: 4.5vh !important;
+}

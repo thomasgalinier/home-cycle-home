@@ -22,15 +22,21 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Textarea } from "@/components/ui/textarea";
+import { useGetClient } from "@/hooks/comptes/useGetClient";
 import { useTechnicien } from "@/hooks/comptes/useTechnicien";
+import { useGetForfait } from "@/hooks/forfait/useGetForfait";
 import { useCreateEmptyIntervention } from "@/hooks/planning/useCreateEmptyIntervention";
 import { useDeleteBulkIntervention } from "@/hooks/planning/useDeleteBulkIntervention";
+import { useDeleteIntervention } from "@/hooks/planning/useDeleteIntervention";
 import { useGetInterventionByTechnicien } from "@/hooks/planning/useGetInterventionByTechnicien";
 import { useUpdateIntervention } from "@/hooks/planning/useUpdateIntervention";
 import type { User } from "@/services/type/auth";
+import type { Forfait } from "@/services/type/forfait";
 import type {
 	Intervention,
 	InterventionUpdate,
+	Statut,
 } from "@/services/type/intervention";
 
 import frLocale from "@fullcalendar/core/locales/fr";
@@ -41,7 +47,6 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import { useQueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
 export const Route = createFileRoute("/_authenticated/planning/")({
 	component: PlanningPage,
 });
@@ -98,9 +103,10 @@ export default function PlanningPage() {
 		queryClient,
 		technicien,
 	);
-	const { form: updateForm } = useUpdateIntervention(event);
-	console.log(interventions);
-
+	const { form: updateForm } = useUpdateIntervention(event as InterventionUpdate, queryClient);
+	const { data: clients } = useGetClient();
+	const { data: forfaits } = useGetForfait();
+	const { mutate: deleteIntervention } = useDeleteIntervention(queryClient);
 	return (
 		<div>
 			<div className="flex gap-2">
@@ -230,6 +236,7 @@ export default function PlanningPage() {
 								<Button onClick={deleteForm.handleSubmit} variant="destructive">
 									Supprimer
 								</Button>
+
 							</TabsContent>
 						</Tabs>
 					</DialogContent>
@@ -251,6 +258,7 @@ export default function PlanningPage() {
 				eventClick={(e) => {
 					setOpenDialogEvent(true);
 					setEvent(e.event.extendedProps as InterventionUpdate);
+					console.log(e.event.extendedProps);
 				}}
 				weekends={false}
 				locale={frLocale}
@@ -290,6 +298,10 @@ export default function PlanningPage() {
 								<Label>Adresse</Label>
 								<AdresseComplete
 									onSelect={(suggestion) => console.log(suggestion)}
+									onZoneCheck={(zone) => {
+										updateForm.setFieldValue("zone_id", zone?.id ?? "");
+										updateForm.setFieldValue("technicien_id", zone?.technicien_id ?? "");
+									}}
 									value={field.state.value}
 									setValue={field.handleChange}
 								/>
@@ -300,7 +312,7 @@ export default function PlanningPage() {
 						{(field) => (
 							<FormContainer>
 								<Label htmlFor="statut">Statut</Label>
-								<Select value={field.state.value} onValueChange={field.handleChange}>
+								<Select value={field.state.value} onValueChange={(value) => field.handleChange(value as Statut)}>
 									<SelectTrigger className="w-full">
 										<SelectValue placeholder="Sélectionner un statut" />
 									</SelectTrigger>
@@ -309,12 +321,66 @@ export default function PlanningPage() {
 										<SelectItem value="PLANNED"><Badge>Planifié</Badge></SelectItem>
 										<SelectItem value="IN_PROGRESS"><Badge variant='secondary'>En cours</Badge></SelectItem>
 										<SelectItem value="COMPLETED"><Badge className="bg-green-500 text-white">Terminé</Badge></SelectItem>
-										<SelectItem value="CANCELLED"><Badge className="bg-red-500 text-white">Annulé</Badge></SelectItem>
+										<SelectItem value="CANCELLED"><Badge variant="destructive">Annulé</Badge></SelectItem>
 									</SelectContent>
 								</Select>
 							</FormContainer>
 						)}
 					</updateForm.Field>
+					<updateForm.Field name="client_id">
+						{(field)=> (
+						<FormContainer>
+							<Label htmlFor="client_id">Client</Label>
+							<SelectUser
+								users={clients}
+								isLoading={isLoading}
+								value={field.state.value}
+								setValue={field.handleChange}
+							/>
+						</FormContainer>
+					)}
+					</updateForm.Field>
+					<updateForm.Field name='detail'>
+						{(field) =>(
+							<FormContainer>
+								<Label htmlFor="detail">Détails</Label>
+								<Textarea
+									id="detail"
+									value={field.state.value}
+									onChange={(e) =>field.handleChange(e.target.value)}
+								/>
+							</FormContainer>
+						)}
+					</updateForm.Field>
+					<updateForm.Field name="forfait_id">
+						{(field) => (
+							<FormContainer>
+								<Label htmlFor="forfait_id">Forfait</Label>
+								<Select value={field.state.value} onValueChange={(value) => field.handleChange(value)}>
+									<SelectTrigger className="w-full">
+										<SelectValue placeholder="Sélectionner un forfait" />
+									</SelectTrigger>
+									<SelectContent>
+										{forfaits?.map((forfait: Forfait) => (
+											<SelectItem key={forfait.id} value={forfait.id} className="flex justify-between w-full">
+												<div>
+													{forfait.titre} - {forfait.categorie_velo}
+												</div>
+												<div>
+													<Badge variant='secondary'>{forfait.prix} €</Badge>
+												</div>
+											</SelectItem>
+										))}
+									</SelectContent>
+								</Select>
+							</FormContainer>
+						)}
+					</updateForm.Field>
+					<Button onClick={updateForm.handleSubmit}>
+						Mettre à jour
+					</Button>
+					<Button
+						variant="destructive" disabled={!event} onClick={() => deleteIntervention(event?.id || '')}>Supprimer</Button>
 				</DialogContent>
 			</Dialog>
 		</div>

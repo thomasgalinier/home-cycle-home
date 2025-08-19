@@ -22,12 +22,12 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useDeleteForfait } from "@/hooks/forfait/useDeleteForfait";
 import type { Forfait } from "@/services/type/forfait";
+import { useQueryClient } from "@tanstack/react-query";
 import { Bike, Clock, EuroIcon, MoreVertical, Pen, Trash } from "lucide-react";
 import { useState } from "react";
 import { Badge } from "../ui/badge";
-import { useDeleteForfait } from "@/hooks/forfait/useDeleteForfait";
-import { useQueryClient } from "@tanstack/react-query";
 import { DialogModificationForfait } from "./DialogModificationForfait";
 
 
@@ -45,7 +45,7 @@ export function CardForfait({ forfait }: CardForfaitProps) {
 					<p>
 						{forfait.titre.charAt(0).toUpperCase() + forfait.titre.slice(1)}
 					</p>
-					<Badge variant="secondary">{forfait.type}</Badge>
+					<Badge variant={forfait.type === 'entretien' ? 'secondary' : 'default'}>{forfait.type}</Badge>
 				</div>
 				<DropdownMenu>
 					<DropdownMenuTrigger className="cursor-pointer">

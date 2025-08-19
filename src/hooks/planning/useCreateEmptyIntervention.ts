@@ -16,7 +16,7 @@ export function useCreateEmptyIntervention(
 	const mutation = useMutation({
 		mutationFn: bulkEmptyIntervention,
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ["intervention"] })
+			queryClient.invalidateQueries({ queryKey: ["interventions"] });
 			toast.success("Intervention créée avec succès");
 		},
 		onError: () => {

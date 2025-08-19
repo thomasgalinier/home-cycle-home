@@ -1,5 +1,6 @@
 import type { User } from "./auth";
 import type { ZoneType } from "./carte";
+import type { Forfait } from "./forfait";
 
 export type dataBulkIntervention = {
     technicien_id: string;
@@ -31,7 +32,7 @@ export type Intervention = {
     debut: Date;
     detail: string | null;
     fin: Date;
-    forfait_intervention: string | null;
+    forfait_intervention: ForfaitIntervention | null;
     id: string;
     statut: Statut;
     technicien: User;
@@ -50,5 +51,15 @@ export type InterventionUpdate = {
     client_id: string | null;
     technicien_id: string | null;
     detail: string | null;
+    zone_id: string | null;
     forfait_id: string | null;
+    forfait_intervention?: ForfaitIntervention | null;
+}
+type ForfaitIntervention = {
+    duree: number;
+    id: string;
+    forfait: Forfait;
+    id_forfait: string;
+    id_intervention: string;
+    prix: number
 }

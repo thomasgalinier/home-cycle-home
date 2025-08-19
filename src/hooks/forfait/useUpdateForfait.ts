@@ -24,12 +24,11 @@ export const useUpdateForfait = (forfait: Forfait, queryClient: ReturnType<typeo
             duree: forfait.duree,
             prix: forfait.prix
         },
-        onSubmit: (values: {value: Forfait}) => {
-            
+        onSubmit: (values: {value: Omit<Forfait, "id">}) => {
+
             mutation.mutate({
                 id: forfait.id,
-                //@ts-ignore
-                forfait: values.value,
+                ...values.value,
             });
         }
     })

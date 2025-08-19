@@ -45,3 +45,12 @@ export const updateIntervention = async (intervention: InterventionUpdate) => {
     })
     return await response.json()
 }
+export function deleteIntervention(id: string) {
+    return fetch(`${API_URL}/intervention/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+    })
+}

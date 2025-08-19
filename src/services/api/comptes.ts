@@ -54,3 +54,14 @@ export async function getTechniciens() {
 	});
 	return await response.json();
 }
+
+export async function getClients(){
+	const response = await fetch(`${API_URL}/auth/client`, {
+		method: "GET",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		credentials: "include",
+	});
+	return await response.json();
+}

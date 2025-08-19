@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useCreateForfait } from "@/hooks/forfait/useCreateForfait";
+import type { TCategorieVelo } from "@/services/type/forfait";
 import { useQueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { EuroIcon } from "lucide-react";
@@ -80,7 +81,7 @@ function RouteComponent() {
 							<Label htmlFor="type">Type</Label>
 							<Select
 								value={field.state.value}
-								onValueChange={(value) => field.handleChange(value)}
+								onValueChange={(value) => field.handleChange(value as "reparation" | "entretien")}
 							>
 								<SelectTrigger className="w-full">
 									<SelectValue placeholder="Sélectionnez le type" />
@@ -99,7 +100,7 @@ function RouteComponent() {
 							<Label htmlFor="categorie_velo">Catégorie de vélo</Label>
 							<Select
 								value={field.state.value}
-								onValueChange={(value) => field.handleChange(value)}
+								onValueChange={(value) => field.handleChange(value as TCategorieVelo)}
 							>
 								<SelectTrigger className="w-full" onBlur={field.handleBlur}>
 									<SelectValue placeholder="Sélectionnez la catégorie de vélo" />
@@ -140,7 +141,7 @@ function RouteComponent() {
 					name="prix"
 					validators={{
 						onBlur: ({ value }) =>
-							!value.trim() ? "Le prix est requis" : undefined,
+							value === undefined || value === null || value === 0 ? "Le prix est requis" : undefined,
 					}}
 				>
 					{(field) => (

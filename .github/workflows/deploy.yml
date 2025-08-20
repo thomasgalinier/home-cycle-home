@@ -1,0 +1,55 @@
+name: Deploy to VPS Prod
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-prod
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout (not strictly needed, but harmless)
+        uses: actions/checkout@v4
+
+      - name: Start SSH agent with CI key
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_KEY }}
+
+      - name: Trust VPS host key
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy over SSH
+        env:
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+        run: |
+          ssh "$SSH_USER@$SSH_HOST" 'bash -s' << 'EOF'
+          set -euo pipefail
+
+          APP_DIR="/var/www/home-cycle-home"
+          cd "$APP_DIR"
+
+          # checkout propre sur la branche main
+          git fetch --all --prune
+          git reset --hard origin/main
+          git clean -fdx
+
+          # BuildKit pour accélérer
+          export DOCKER_BUILDKIT=1
+          export COMPOSE_DOCKER_CLI_BUILD=1
+
+          # déploiement sans downtime ni perte de volumes
+          docker compose --env-file ../.env -p home-cycle-home_prod up -d --build --remove-orphans
+
+          # (optionnel) petit ménage des images dangling
+          docker image prune -f || true
+          EOF

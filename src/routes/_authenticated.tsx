@@ -11,7 +11,7 @@ export const Route = createFileRoute("/_authenticated")({
 		console.log("Authenticated:", isAuthenticated);
 		if (!isAuthenticated) {
 			throw redirect({
-				to: "/auth/Signin",
+				to: "/",
 				search: {
 					redirect: location.href,
 				},

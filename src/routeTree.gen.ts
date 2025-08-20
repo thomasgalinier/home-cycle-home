@@ -10,167 +10,190 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as ClientRouteImport } from './routes/_client'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
-import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
+import { Route as ClientIndexRouteImport } from './routes/_client/index'
 import { Route as AuthSigninRouteImport } from './routes/auth/Signin'
-import { Route as AuthenticatedPlanningRouteImport } from './routes/_authenticated/planning'
-import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
-import { Route as AuthenticatedPlanningIndexRouteImport } from './routes/_authenticated/planning/index'
-import { Route as AuthenticatedForfaitIndexRouteImport } from './routes/_authenticated/forfait/index'
-import { Route as AuthenticatedComptesIndexRouteImport } from './routes/_authenticated/comptes/index'
-import { Route as AuthenticatedCarteIndexRouteImport } from './routes/_authenticated/carte/index'
-import { Route as AuthenticatedForfaitCreateRouteImport } from './routes/_authenticated/forfait/create'
-import { Route as AuthenticatedComptesCreateRouteImport } from './routes/_authenticated/comptes/create'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
+import { Route as AuthenticatedAdminPlanningRouteImport } from './routes/_authenticated/admin/planning'
+import { Route as AuthenticatedAdminDashboardRouteImport } from './routes/_authenticated/admin/dashboard'
+import { Route as AuthenticatedAdminPlanningIndexRouteImport } from './routes/_authenticated/admin/planning/index'
+import { Route as AuthenticatedAdminForfaitIndexRouteImport } from './routes/_authenticated/admin/forfait/index'
+import { Route as AuthenticatedAdminComptesIndexRouteImport } from './routes/_authenticated/admin/comptes/index'
+import { Route as AuthenticatedAdminCarteIndexRouteImport } from './routes/_authenticated/admin/carte/index'
+import { Route as AuthenticatedAdminForfaitCreateRouteImport } from './routes/_authenticated/admin/forfait/create'
+import { Route as AuthenticatedAdminComptesCreateRouteImport } from './routes/_authenticated/admin/comptes/create'
 
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ClientRoute = ClientRouteImport.update({
+  id: '/_client',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedRoute = AuthenticatedRouteImport.update({
   id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
+const ClientIndexRoute = ClientIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => AuthenticatedRoute,
+  getParentRoute: () => ClientRoute,
 } as any)
 const AuthSigninRoute = AuthSigninRouteImport.update({
   id: '/Signin',
   path: '/Signin',
   getParentRoute: () => AuthRoute,
 } as any)
-const AuthenticatedPlanningRoute = AuthenticatedPlanningRouteImport.update({
-  id: '/planning',
-  path: '/planning',
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
-const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
-  getParentRoute: () => AuthenticatedRoute,
-} as any)
-const AuthenticatedPlanningIndexRoute =
-  AuthenticatedPlanningIndexRouteImport.update({
+const AuthenticatedAdminPlanningRoute =
+  AuthenticatedAdminPlanningRouteImport.update({
+    id: '/admin/planning',
+    path: '/admin/planning',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedAdminDashboardRoute =
+  AuthenticatedAdminDashboardRouteImport.update({
+    id: '/admin/dashboard',
+    path: '/admin/dashboard',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedAdminPlanningIndexRoute =
+  AuthenticatedAdminPlanningIndexRouteImport.update({
     id: '/',
     path: '/',
-    getParentRoute: () => AuthenticatedPlanningRoute,
+    getParentRoute: () => AuthenticatedAdminPlanningRoute,
   } as any)
-const AuthenticatedForfaitIndexRoute =
-  AuthenticatedForfaitIndexRouteImport.update({
-    id: '/forfait/',
-    path: '/forfait/',
+const AuthenticatedAdminForfaitIndexRoute =
+  AuthenticatedAdminForfaitIndexRouteImport.update({
+    id: '/admin/forfait/',
+    path: '/admin/forfait/',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
-const AuthenticatedComptesIndexRoute =
-  AuthenticatedComptesIndexRouteImport.update({
-    id: '/comptes/',
-    path: '/comptes/',
+const AuthenticatedAdminComptesIndexRoute =
+  AuthenticatedAdminComptesIndexRouteImport.update({
+    id: '/admin/comptes/',
+    path: '/admin/comptes/',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
-const AuthenticatedCarteIndexRoute = AuthenticatedCarteIndexRouteImport.update({
-  id: '/carte/',
-  path: '/carte/',
-  getParentRoute: () => AuthenticatedRoute,
-} as any)
-const AuthenticatedForfaitCreateRoute =
-  AuthenticatedForfaitCreateRouteImport.update({
-    id: '/forfait/create',
-    path: '/forfait/create',
+const AuthenticatedAdminCarteIndexRoute =
+  AuthenticatedAdminCarteIndexRouteImport.update({
+    id: '/admin/carte/',
+    path: '/admin/carte/',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
-const AuthenticatedComptesCreateRoute =
-  AuthenticatedComptesCreateRouteImport.update({
-    id: '/comptes/create',
-    path: '/comptes/create',
+const AuthenticatedAdminForfaitCreateRoute =
+  AuthenticatedAdminForfaitCreateRouteImport.update({
+    id: '/admin/forfait/create',
+    path: '/admin/forfait/create',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedAdminComptesCreateRoute =
+  AuthenticatedAdminComptesCreateRouteImport.update({
+    id: '/admin/comptes/create',
+    path: '/admin/comptes/create',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
   '/auth': typeof AuthRouteWithChildren
-  '/dashboard': typeof AuthenticatedDashboardRoute
-  '/planning': typeof AuthenticatedPlanningRouteWithChildren
   '/auth/Signin': typeof AuthSigninRoute
-  '/': typeof AuthenticatedIndexRoute
-  '/comptes/create': typeof AuthenticatedComptesCreateRoute
-  '/forfait/create': typeof AuthenticatedForfaitCreateRoute
-  '/carte': typeof AuthenticatedCarteIndexRoute
-  '/comptes': typeof AuthenticatedComptesIndexRoute
-  '/forfait': typeof AuthenticatedForfaitIndexRoute
-  '/planning/': typeof AuthenticatedPlanningIndexRoute
+  '/': typeof ClientIndexRoute
+  '/admin/dashboard': typeof AuthenticatedAdminDashboardRoute
+  '/admin/planning': typeof AuthenticatedAdminPlanningRouteWithChildren
+  '/admin': typeof AuthenticatedAdminIndexRoute
+  '/admin/comptes/create': typeof AuthenticatedAdminComptesCreateRoute
+  '/admin/forfait/create': typeof AuthenticatedAdminForfaitCreateRoute
+  '/admin/carte': typeof AuthenticatedAdminCarteIndexRoute
+  '/admin/comptes': typeof AuthenticatedAdminComptesIndexRoute
+  '/admin/forfait': typeof AuthenticatedAdminForfaitIndexRoute
+  '/admin/planning/': typeof AuthenticatedAdminPlanningIndexRoute
 }
 export interface FileRoutesByTo {
   '/auth': typeof AuthRouteWithChildren
-  '/dashboard': typeof AuthenticatedDashboardRoute
   '/auth/Signin': typeof AuthSigninRoute
-  '/': typeof AuthenticatedIndexRoute
-  '/comptes/create': typeof AuthenticatedComptesCreateRoute
-  '/forfait/create': typeof AuthenticatedForfaitCreateRoute
-  '/carte': typeof AuthenticatedCarteIndexRoute
-  '/comptes': typeof AuthenticatedComptesIndexRoute
-  '/forfait': typeof AuthenticatedForfaitIndexRoute
-  '/planning': typeof AuthenticatedPlanningIndexRoute
+  '/': typeof ClientIndexRoute
+  '/admin/dashboard': typeof AuthenticatedAdminDashboardRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
+  '/admin/comptes/create': typeof AuthenticatedAdminComptesCreateRoute
+  '/admin/forfait/create': typeof AuthenticatedAdminForfaitCreateRoute
+  '/admin/carte': typeof AuthenticatedAdminCarteIndexRoute
+  '/admin/comptes': typeof AuthenticatedAdminComptesIndexRoute
+  '/admin/forfait': typeof AuthenticatedAdminForfaitIndexRoute
+  '/admin/planning': typeof AuthenticatedAdminPlanningIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_authenticated': typeof AuthenticatedRouteWithChildren
+  '/_client': typeof ClientRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
-  '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
-  '/_authenticated/planning': typeof AuthenticatedPlanningRouteWithChildren
   '/auth/Signin': typeof AuthSigninRoute
-  '/_authenticated/': typeof AuthenticatedIndexRoute
-  '/_authenticated/comptes/create': typeof AuthenticatedComptesCreateRoute
-  '/_authenticated/forfait/create': typeof AuthenticatedForfaitCreateRoute
-  '/_authenticated/carte/': typeof AuthenticatedCarteIndexRoute
-  '/_authenticated/comptes/': typeof AuthenticatedComptesIndexRoute
-  '/_authenticated/forfait/': typeof AuthenticatedForfaitIndexRoute
-  '/_authenticated/planning/': typeof AuthenticatedPlanningIndexRoute
+  '/_client/': typeof ClientIndexRoute
+  '/_authenticated/admin/dashboard': typeof AuthenticatedAdminDashboardRoute
+  '/_authenticated/admin/planning': typeof AuthenticatedAdminPlanningRouteWithChildren
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
+  '/_authenticated/admin/comptes/create': typeof AuthenticatedAdminComptesCreateRoute
+  '/_authenticated/admin/forfait/create': typeof AuthenticatedAdminForfaitCreateRoute
+  '/_authenticated/admin/carte/': typeof AuthenticatedAdminCarteIndexRoute
+  '/_authenticated/admin/comptes/': typeof AuthenticatedAdminComptesIndexRoute
+  '/_authenticated/admin/forfait/': typeof AuthenticatedAdminForfaitIndexRoute
+  '/_authenticated/admin/planning/': typeof AuthenticatedAdminPlanningIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/auth'
-    | '/dashboard'
-    | '/planning'
     | '/auth/Signin'
     | '/'
-    | '/comptes/create'
-    | '/forfait/create'
-    | '/carte'
-    | '/comptes'
-    | '/forfait'
-    | '/planning/'
+    | '/admin/dashboard'
+    | '/admin/planning'
+    | '/admin'
+    | '/admin/comptes/create'
+    | '/admin/forfait/create'
+    | '/admin/carte'
+    | '/admin/comptes'
+    | '/admin/forfait'
+    | '/admin/planning/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/auth'
-    | '/dashboard'
     | '/auth/Signin'
     | '/'
-    | '/comptes/create'
-    | '/forfait/create'
-    | '/carte'
-    | '/comptes'
-    | '/forfait'
-    | '/planning'
+    | '/admin/dashboard'
+    | '/admin'
+    | '/admin/comptes/create'
+    | '/admin/forfait/create'
+    | '/admin/carte'
+    | '/admin/comptes'
+    | '/admin/forfait'
+    | '/admin/planning'
   id:
     | '__root__'
     | '/_authenticated'
+    | '/_client'
     | '/auth'
-    | '/_authenticated/dashboard'
-    | '/_authenticated/planning'
     | '/auth/Signin'
-    | '/_authenticated/'
-    | '/_authenticated/comptes/create'
-    | '/_authenticated/forfait/create'
-    | '/_authenticated/carte/'
-    | '/_authenticated/comptes/'
-    | '/_authenticated/forfait/'
-    | '/_authenticated/planning/'
+    | '/_client/'
+    | '/_authenticated/admin/dashboard'
+    | '/_authenticated/admin/planning'
+    | '/_authenticated/admin/'
+    | '/_authenticated/admin/comptes/create'
+    | '/_authenticated/admin/forfait/create'
+    | '/_authenticated/admin/carte/'
+    | '/_authenticated/admin/comptes/'
+    | '/_authenticated/admin/forfait/'
+    | '/_authenticated/admin/planning/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
+  ClientRoute: typeof ClientRouteWithChildren
   AuthRoute: typeof AuthRouteWithChildren
 }
 
@@ -183,6 +206,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_client': {
+      id: '/_client'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof ClientRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated': {
       id: '/_authenticated'
       path: ''
@@ -190,12 +220,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/': {
-      id: '/_authenticated/'
+    '/_client/': {
+      id: '/_client/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof AuthenticatedIndexRouteImport
-      parentRoute: typeof AuthenticatedRoute
+      preLoaderRoute: typeof ClientIndexRouteImport
+      parentRoute: typeof ClientRoute
     }
     '/auth/Signin': {
       id: '/auth/Signin'
@@ -204,103 +234,122 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSigninRouteImport
       parentRoute: typeof AuthRoute
     }
-    '/_authenticated/planning': {
-      id: '/_authenticated/planning'
-      path: '/planning'
-      fullPath: '/planning'
-      preLoaderRoute: typeof AuthenticatedPlanningRouteImport
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/dashboard': {
-      id: '/_authenticated/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+    '/_authenticated/admin/planning': {
+      id: '/_authenticated/admin/planning'
+      path: '/admin/planning'
+      fullPath: '/admin/planning'
+      preLoaderRoute: typeof AuthenticatedAdminPlanningRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/planning/': {
-      id: '/_authenticated/planning/'
+    '/_authenticated/admin/dashboard': {
+      id: '/_authenticated/admin/dashboard'
+      path: '/admin/dashboard'
+      fullPath: '/admin/dashboard'
+      preLoaderRoute: typeof AuthenticatedAdminDashboardRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/admin/planning/': {
+      id: '/_authenticated/admin/planning/'
       path: '/'
-      fullPath: '/planning/'
-      preLoaderRoute: typeof AuthenticatedPlanningIndexRouteImport
-      parentRoute: typeof AuthenticatedPlanningRoute
+      fullPath: '/admin/planning/'
+      preLoaderRoute: typeof AuthenticatedAdminPlanningIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminPlanningRoute
     }
-    '/_authenticated/forfait/': {
-      id: '/_authenticated/forfait/'
-      path: '/forfait'
-      fullPath: '/forfait'
-      preLoaderRoute: typeof AuthenticatedForfaitIndexRouteImport
+    '/_authenticated/admin/forfait/': {
+      id: '/_authenticated/admin/forfait/'
+      path: '/admin/forfait'
+      fullPath: '/admin/forfait'
+      preLoaderRoute: typeof AuthenticatedAdminForfaitIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/comptes/': {
-      id: '/_authenticated/comptes/'
-      path: '/comptes'
-      fullPath: '/comptes'
-      preLoaderRoute: typeof AuthenticatedComptesIndexRouteImport
+    '/_authenticated/admin/comptes/': {
+      id: '/_authenticated/admin/comptes/'
+      path: '/admin/comptes'
+      fullPath: '/admin/comptes'
+      preLoaderRoute: typeof AuthenticatedAdminComptesIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/carte/': {
-      id: '/_authenticated/carte/'
-      path: '/carte'
-      fullPath: '/carte'
-      preLoaderRoute: typeof AuthenticatedCarteIndexRouteImport
+    '/_authenticated/admin/carte/': {
+      id: '/_authenticated/admin/carte/'
+      path: '/admin/carte'
+      fullPath: '/admin/carte'
+      preLoaderRoute: typeof AuthenticatedAdminCarteIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/forfait/create': {
-      id: '/_authenticated/forfait/create'
-      path: '/forfait/create'
-      fullPath: '/forfait/create'
-      preLoaderRoute: typeof AuthenticatedForfaitCreateRouteImport
+    '/_authenticated/admin/forfait/create': {
+      id: '/_authenticated/admin/forfait/create'
+      path: '/admin/forfait/create'
+      fullPath: '/admin/forfait/create'
+      preLoaderRoute: typeof AuthenticatedAdminForfaitCreateRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/comptes/create': {
-      id: '/_authenticated/comptes/create'
-      path: '/comptes/create'
-      fullPath: '/comptes/create'
-      preLoaderRoute: typeof AuthenticatedComptesCreateRouteImport
+    '/_authenticated/admin/comptes/create': {
+      id: '/_authenticated/admin/comptes/create'
+      path: '/admin/comptes/create'
+      fullPath: '/admin/comptes/create'
+      preLoaderRoute: typeof AuthenticatedAdminComptesCreateRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
   }
 }
 
-interface AuthenticatedPlanningRouteChildren {
-  AuthenticatedPlanningIndexRoute: typeof AuthenticatedPlanningIndexRoute
+interface AuthenticatedAdminPlanningRouteChildren {
+  AuthenticatedAdminPlanningIndexRoute: typeof AuthenticatedAdminPlanningIndexRoute
 }
 
-const AuthenticatedPlanningRouteChildren: AuthenticatedPlanningRouteChildren = {
-  AuthenticatedPlanningIndexRoute: AuthenticatedPlanningIndexRoute,
-}
+const AuthenticatedAdminPlanningRouteChildren: AuthenticatedAdminPlanningRouteChildren =
+  {
+    AuthenticatedAdminPlanningIndexRoute: AuthenticatedAdminPlanningIndexRoute,
+  }
 
-const AuthenticatedPlanningRouteWithChildren =
-  AuthenticatedPlanningRoute._addFileChildren(
-    AuthenticatedPlanningRouteChildren,
+const AuthenticatedAdminPlanningRouteWithChildren =
+  AuthenticatedAdminPlanningRoute._addFileChildren(
+    AuthenticatedAdminPlanningRouteChildren,
   )
 
 interface AuthenticatedRouteChildren {
-  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
-  AuthenticatedPlanningRoute: typeof AuthenticatedPlanningRouteWithChildren
-  AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
-  AuthenticatedComptesCreateRoute: typeof AuthenticatedComptesCreateRoute
-  AuthenticatedForfaitCreateRoute: typeof AuthenticatedForfaitCreateRoute
-  AuthenticatedCarteIndexRoute: typeof AuthenticatedCarteIndexRoute
-  AuthenticatedComptesIndexRoute: typeof AuthenticatedComptesIndexRoute
-  AuthenticatedForfaitIndexRoute: typeof AuthenticatedForfaitIndexRoute
+  AuthenticatedAdminDashboardRoute: typeof AuthenticatedAdminDashboardRoute
+  AuthenticatedAdminPlanningRoute: typeof AuthenticatedAdminPlanningRouteWithChildren
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+  AuthenticatedAdminComptesCreateRoute: typeof AuthenticatedAdminComptesCreateRoute
+  AuthenticatedAdminForfaitCreateRoute: typeof AuthenticatedAdminForfaitCreateRoute
+  AuthenticatedAdminCarteIndexRoute: typeof AuthenticatedAdminCarteIndexRoute
+  AuthenticatedAdminComptesIndexRoute: typeof AuthenticatedAdminComptesIndexRoute
+  AuthenticatedAdminForfaitIndexRoute: typeof AuthenticatedAdminForfaitIndexRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
-  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
-  AuthenticatedPlanningRoute: AuthenticatedPlanningRouteWithChildren,
-  AuthenticatedIndexRoute: AuthenticatedIndexRoute,
-  AuthenticatedComptesCreateRoute: AuthenticatedComptesCreateRoute,
-  AuthenticatedForfaitCreateRoute: AuthenticatedForfaitCreateRoute,
-  AuthenticatedCarteIndexRoute: AuthenticatedCarteIndexRoute,
-  AuthenticatedComptesIndexRoute: AuthenticatedComptesIndexRoute,
-  AuthenticatedForfaitIndexRoute: AuthenticatedForfaitIndexRoute,
+  AuthenticatedAdminDashboardRoute: AuthenticatedAdminDashboardRoute,
+  AuthenticatedAdminPlanningRoute: AuthenticatedAdminPlanningRouteWithChildren,
+  AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+  AuthenticatedAdminComptesCreateRoute: AuthenticatedAdminComptesCreateRoute,
+  AuthenticatedAdminForfaitCreateRoute: AuthenticatedAdminForfaitCreateRoute,
+  AuthenticatedAdminCarteIndexRoute: AuthenticatedAdminCarteIndexRoute,
+  AuthenticatedAdminComptesIndexRoute: AuthenticatedAdminComptesIndexRoute,
+  AuthenticatedAdminForfaitIndexRoute: AuthenticatedAdminForfaitIndexRoute,
 }
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
   AuthenticatedRouteChildren,
 )
+
+interface ClientRouteChildren {
+  ClientIndexRoute: typeof ClientIndexRoute
+}
+
+const ClientRouteChildren: ClientRouteChildren = {
+  ClientIndexRoute: ClientIndexRoute,
+}
+
+const ClientRouteWithChildren =
+  ClientRoute._addFileChildren(ClientRouteChildren)
 
 interface AuthRouteChildren {
   AuthSigninRoute: typeof AuthSigninRoute
@@ -314,6 +363,7 @@ const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
+  ClientRoute: ClientRouteWithChildren,
   AuthRoute: AuthRouteWithChildren,
 }
 export const routeTree = rootRouteImport

@@ -31,7 +31,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { flexRender, useReactTable } from "@tanstack/react-table";
 import { type ColumnDef, getCoreRowModel } from "@tanstack/table-core";
 
-export const Route = createFileRoute("/_authenticated/comptes/")({
+export const Route = createFileRoute("/_authenticated/admin/comptes/")({
 	component: Comptes,
 });
 
@@ -52,12 +52,12 @@ function Comptes() {
 						disabled={user.role === "SUPER_ADMIN"}
 						checked={row.getIsSelected()}
 						onCheckedChange={() => {
-							row.toggleSelected();
+							row.toggleSelected()
 						}}
 						className="cursor-pointer"
 						aria-label="select row"
 					/>
-				);
+				)
 			},
 		},
 		{
@@ -92,15 +92,15 @@ function Comptes() {
 						</DialogTrigger>
 						<DialogUpdateUser user={user} />
 					</Dialog>
-				);
+				)
 			},
 		},
-	];
+	]
 	const table = useReactTable({
 		data: Array.isArray(dataUser) ? dataUser : [],
 		columns,
 		getCoreRowModel: getCoreRowModel(),
-	});
+	})
 	const selectedRows = table
 		.getSelectedRowModel()
 		.flatRows.map((row) => row.original);
@@ -108,8 +108,8 @@ function Comptes() {
 		// biome-ignore lint/complexity/noForEach: <explanation>
 		selectedRows.forEach((user) => {
 			deleteUser(user.id);
-		});
-	};
+		})
+	}
 	return (
 		<div className="p-2">
 			<div className="flex gap-2 pb-2">
@@ -150,7 +150,7 @@ function Comptes() {
 									</TableHead>
 								))}
 							</TableRow>
-						);
+						)
 					})}
 				</TableHeader>
 				<TableBody>
@@ -174,5 +174,5 @@ function Comptes() {
 				</TableBody>
 			</Table>
 		</div>
-	);
+	)
 }

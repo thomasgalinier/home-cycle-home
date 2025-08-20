@@ -4,7 +4,7 @@ import { useGetForfait } from "@/hooks/forfait/useGetForfait";
 import type { Forfait } from "@/services/type/forfait";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/_authenticated/forfait/")({
+export const Route = createFileRoute("/_authenticated/admin/forfait/")({
 	component: RouteComponent,
 });
 
@@ -23,5 +23,5 @@ function RouteComponent() {
 			))}
 		</div>
     </div>
-	);
+	)
 }

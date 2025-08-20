@@ -1,9 +1,16 @@
 name: Deploy to VPS Prod
 
 on:
-  push:
-    branches: [ "main" ]
   workflow_dispatch:
+    inputs:
+      ref:
+        description: "Branche ou tag à déployer"
+        required: true
+        default: "main"
+      confirm:
+        description: "Tape EXACTEMENT: DEPLOY"
+        required: true
+    
 
 concurrency:
   group: deploy-prod
@@ -47,7 +54,7 @@ jobs:
           export COMPOSE_DOCKER_CLI_BUILD=1
 
           # déploiement sans downtime ni perte de volumes
-          docker compose --env-file .env -p home-cycle-home_prod up -d --build --remove-orphans
+          docker compose --env-file .env -p home-cycle-home_prod up -d --build
 
           # (optionnel) petit ménage des images dangling
           docker image prune -f || true

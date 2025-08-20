@@ -6,7 +6,6 @@ services:
         # Build-time Vite envs (will be injected into the build)
         VITE_API_URL: ${VITE_API_URL}
     image: home-cycle-home:latest
-    container_name: home-cycle-home
     ports:
       - ${PORT:-3000}:80
     env_file:

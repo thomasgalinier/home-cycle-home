@@ -126,7 +126,7 @@ export function AppSidebar({ user }: { user: UserType | undefined }) {
 		}));
 	};
 	return (
-		<Sidebar variant="inset">
+		<Sidebar variant="inset" data-testid='sidebar'>
 			<SidebarContent>
 				<SidebarGroup>
 					<SidebarGroupLabel>Menu</SidebarGroupLabel>

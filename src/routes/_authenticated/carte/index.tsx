@@ -31,7 +31,7 @@ function RouteComponent() {
 	
 	const { data: techniciens } = useTechnicien();
 	const { mutate: deleteZone } = useDeleteZone(queryClient);
-	const { data: zones, isLoading } = useGetZone();
+	const { data: zones,  isLoading } = useGetZone();
 	const { mutate: createZone } = useCreateZone(queryClient);
 	const { form } = useUpdateZone(
 		queryClient,

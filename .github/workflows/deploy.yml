@@ -39,9 +39,8 @@ jobs:
           cd "$APP_DIR"
 
           # checkout propre sur la branche main
-          git fetch --all --prune
           git reset --hard origin/main
-          git clean -fdx
+          git pull
 
           # BuildKit pour accélérer
           export DOCKER_BUILDKIT=1

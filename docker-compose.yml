@@ -8,7 +8,6 @@ services:
     image: home-cycle-home:latest
     container_name: home-cycle-home
     ports:
-      - "${PORT:-8080}:80"
+      - ${PORT:-3000}:80
     env_file:
       - .env
-    #

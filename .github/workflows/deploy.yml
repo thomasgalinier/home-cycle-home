@@ -47,7 +47,7 @@ jobs:
           export COMPOSE_DOCKER_CLI_BUILD=1
 
           # déploiement sans downtime ni perte de volumes
-          docker compose --env-file ../.env -p home-cycle-home_prod up -d --build --remove-orphans
+          docker compose --env-file .env -p home-cycle-home_prod up -d --build --remove-orphans
 
           # (optionnel) petit ménage des images dangling
           docker image prune -f || true

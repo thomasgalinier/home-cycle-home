@@ -1,12 +1,16 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useMe } from "@/hooks/comptes/useMe.ts";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useEffect } from "react";
 
 export const Route = createFileRoute("/_authenticated/")({
 	component: App,
+
 });
 
 function App() {
-	const { data } = useMe();
-	console.log(data);
-	return <div className="text-center bg-violet-600">toto</div>;
+	  const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate({ to: "/dashboard", replace: true });
+  }, [navigate]);
+	return null
 }

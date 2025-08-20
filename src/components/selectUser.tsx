@@ -11,21 +11,24 @@ import {
 } from "./ui/select";
 
 type SelectUserProps = {
-    field: AnyFieldApi;
+    field?: AnyFieldApi;
     users: User[];
+	value?: string;
+	setValue?: (value: string) => void;
+	isLoading?: boolean;
 };
-export default function SelectUser({field, users}: SelectUserProps) {
-    
+export default function SelectUser({field, users, value, setValue, isLoading}: SelectUserProps) {
+
 	return (
 		<Select
-			value={field.state.value}
-			onValueChange={(value) => field.handleChange(value)}
+			value={field?.state.value || value}
+			onValueChange={(value) => {field ? field.handleChange(value) : setValue?.(value)}}
 		>
 			<SelectTrigger className="w-full">
 				<SelectValue placeholder="Selectionne un utilisateur" />
 			</SelectTrigger>
 			<SelectContent className="w-full z-[10000]">
-				{users.map((user) => (
+				{!isLoading? users.map((user) => (
 					<SelectItem key={user.id} value={user.id}>
                         <Avatar className="w-6 h-6">
                             <AvatarImage
@@ -34,7 +37,7 @@ export default function SelectUser({field, users}: SelectUserProps) {
                         </Avatar>
 						{user.prenom} {user.nom}
 					</SelectItem>
-				))}
+				)): null}
 			</SelectContent>
 		</Select>
 	);

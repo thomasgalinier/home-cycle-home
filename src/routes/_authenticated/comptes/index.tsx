@@ -15,7 +15,7 @@ import { DialogUpdateUser } from "@/components/Comptes/DialogUpdateUser.tsx";
 // import { useComptes } from "@/hooks/useComptes.tsx";
 import { Checkbox } from "@/components/ui/checkbox.tsx";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog.tsx";
-import { Drawer, DrawerContent } from "@/components/ui/drawer";
+
 import {
 	Table,
 	TableBody,

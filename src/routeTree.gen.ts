@@ -13,9 +13,13 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
 import { Route as AuthSigninRouteImport } from './routes/auth/Signin'
+import { Route as AuthenticatedPlanningRouteImport } from './routes/_authenticated/planning'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedPlanningIndexRouteImport } from './routes/_authenticated/planning/index'
+import { Route as AuthenticatedForfaitIndexRouteImport } from './routes/_authenticated/forfait/index'
 import { Route as AuthenticatedComptesIndexRouteImport } from './routes/_authenticated/comptes/index'
 import { Route as AuthenticatedCarteIndexRouteImport } from './routes/_authenticated/carte/index'
+import { Route as AuthenticatedForfaitCreateRouteImport } from './routes/_authenticated/forfait/create'
 import { Route as AuthenticatedComptesCreateRouteImport } from './routes/_authenticated/comptes/create'
 
 const AuthRoute = AuthRouteImport.update({
@@ -37,11 +41,28 @@ const AuthSigninRoute = AuthSigninRouteImport.update({
   path: '/Signin',
   getParentRoute: () => AuthRoute,
 } as any)
+const AuthenticatedPlanningRoute = AuthenticatedPlanningRouteImport.update({
+  id: '/planning',
+  path: '/planning',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedPlanningIndexRoute =
+  AuthenticatedPlanningIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedPlanningRoute,
+  } as any)
+const AuthenticatedForfaitIndexRoute =
+  AuthenticatedForfaitIndexRouteImport.update({
+    id: '/forfait/',
+    path: '/forfait/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedComptesIndexRoute =
   AuthenticatedComptesIndexRouteImport.update({
     id: '/comptes/',
@@ -53,6 +74,12 @@ const AuthenticatedCarteIndexRoute = AuthenticatedCarteIndexRouteImport.update({
   path: '/carte/',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedForfaitCreateRoute =
+  AuthenticatedForfaitCreateRouteImport.update({
+    id: '/forfait/create',
+    path: '/forfait/create',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedComptesCreateRoute =
   AuthenticatedComptesCreateRouteImport.update({
     id: '/comptes/create',
@@ -63,11 +90,15 @@ const AuthenticatedComptesCreateRoute =
 export interface FileRoutesByFullPath {
   '/auth': typeof AuthRouteWithChildren
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/planning': typeof AuthenticatedPlanningRouteWithChildren
   '/auth/Signin': typeof AuthSigninRoute
   '/': typeof AuthenticatedIndexRoute
   '/comptes/create': typeof AuthenticatedComptesCreateRoute
+  '/forfait/create': typeof AuthenticatedForfaitCreateRoute
   '/carte': typeof AuthenticatedCarteIndexRoute
   '/comptes': typeof AuthenticatedComptesIndexRoute
+  '/forfait': typeof AuthenticatedForfaitIndexRoute
+  '/planning/': typeof AuthenticatedPlanningIndexRoute
 }
 export interface FileRoutesByTo {
   '/auth': typeof AuthRouteWithChildren
@@ -75,30 +106,41 @@ export interface FileRoutesByTo {
   '/auth/Signin': typeof AuthSigninRoute
   '/': typeof AuthenticatedIndexRoute
   '/comptes/create': typeof AuthenticatedComptesCreateRoute
+  '/forfait/create': typeof AuthenticatedForfaitCreateRoute
   '/carte': typeof AuthenticatedCarteIndexRoute
   '/comptes': typeof AuthenticatedComptesIndexRoute
+  '/forfait': typeof AuthenticatedForfaitIndexRoute
+  '/planning': typeof AuthenticatedPlanningIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/planning': typeof AuthenticatedPlanningRouteWithChildren
   '/auth/Signin': typeof AuthSigninRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/_authenticated/comptes/create': typeof AuthenticatedComptesCreateRoute
+  '/_authenticated/forfait/create': typeof AuthenticatedForfaitCreateRoute
   '/_authenticated/carte/': typeof AuthenticatedCarteIndexRoute
   '/_authenticated/comptes/': typeof AuthenticatedComptesIndexRoute
+  '/_authenticated/forfait/': typeof AuthenticatedForfaitIndexRoute
+  '/_authenticated/planning/': typeof AuthenticatedPlanningIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/auth'
     | '/dashboard'
+    | '/planning'
     | '/auth/Signin'
     | '/'
     | '/comptes/create'
+    | '/forfait/create'
     | '/carte'
     | '/comptes'
+    | '/forfait'
+    | '/planning/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/auth'
@@ -106,18 +148,25 @@ export interface FileRouteTypes {
     | '/auth/Signin'
     | '/'
     | '/comptes/create'
+    | '/forfait/create'
     | '/carte'
     | '/comptes'
+    | '/forfait'
+    | '/planning'
   id:
     | '__root__'
     | '/_authenticated'
     | '/auth'
     | '/_authenticated/dashboard'
+    | '/_authenticated/planning'
     | '/auth/Signin'
     | '/_authenticated/'
     | '/_authenticated/comptes/create'
+    | '/_authenticated/forfait/create'
     | '/_authenticated/carte/'
     | '/_authenticated/comptes/'
+    | '/_authenticated/forfait/'
+    | '/_authenticated/planning/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -155,11 +204,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSigninRouteImport
       parentRoute: typeof AuthRoute
     }
+    '/_authenticated/planning': {
+      id: '/_authenticated/planning'
+      path: '/planning'
+      fullPath: '/planning'
+      preLoaderRoute: typeof AuthenticatedPlanningRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/dashboard': {
       id: '/_authenticated/dashboard'
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/planning/': {
+      id: '/_authenticated/planning/'
+      path: '/'
+      fullPath: '/planning/'
+      preLoaderRoute: typeof AuthenticatedPlanningIndexRouteImport
+      parentRoute: typeof AuthenticatedPlanningRoute
+    }
+    '/_authenticated/forfait/': {
+      id: '/_authenticated/forfait/'
+      path: '/forfait'
+      fullPath: '/forfait'
+      preLoaderRoute: typeof AuthenticatedForfaitIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/comptes/': {
@@ -176,6 +246,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCarteIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/forfait/create': {
+      id: '/_authenticated/forfait/create'
+      path: '/forfait/create'
+      fullPath: '/forfait/create'
+      preLoaderRoute: typeof AuthenticatedForfaitCreateRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/comptes/create': {
       id: '/_authenticated/comptes/create'
       path: '/comptes/create'
@@ -186,20 +263,39 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AuthenticatedPlanningRouteChildren {
+  AuthenticatedPlanningIndexRoute: typeof AuthenticatedPlanningIndexRoute
+}
+
+const AuthenticatedPlanningRouteChildren: AuthenticatedPlanningRouteChildren = {
+  AuthenticatedPlanningIndexRoute: AuthenticatedPlanningIndexRoute,
+}
+
+const AuthenticatedPlanningRouteWithChildren =
+  AuthenticatedPlanningRoute._addFileChildren(
+    AuthenticatedPlanningRouteChildren,
+  )
+
 interface AuthenticatedRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedPlanningRoute: typeof AuthenticatedPlanningRouteWithChildren
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedComptesCreateRoute: typeof AuthenticatedComptesCreateRoute
+  AuthenticatedForfaitCreateRoute: typeof AuthenticatedForfaitCreateRoute
   AuthenticatedCarteIndexRoute: typeof AuthenticatedCarteIndexRoute
   AuthenticatedComptesIndexRoute: typeof AuthenticatedComptesIndexRoute
+  AuthenticatedForfaitIndexRoute: typeof AuthenticatedForfaitIndexRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedPlanningRoute: AuthenticatedPlanningRouteWithChildren,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedComptesCreateRoute: AuthenticatedComptesCreateRoute,
+  AuthenticatedForfaitCreateRoute: AuthenticatedForfaitCreateRoute,
   AuthenticatedCarteIndexRoute: AuthenticatedCarteIndexRoute,
   AuthenticatedComptesIndexRoute: AuthenticatedComptesIndexRoute,
+  AuthenticatedForfaitIndexRoute: AuthenticatedForfaitIndexRoute,
 }
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(

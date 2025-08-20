@@ -27,10 +27,11 @@ function RouteComponent() {
 
 	const [drawerOpen, setDrawerOpen] = useState(false);
 	const [selectedZone, setSelectedZone] = useState<ZoneType | null>(null);
-
+	console.log(selectedZone);
+	
 	const { data: techniciens } = useTechnicien();
 	const { mutate: deleteZone } = useDeleteZone(queryClient);
-	const { data: zones, isLoading } = useGetZone();
+	const { data: zones,  isLoading } = useGetZone();
 	const { mutate: createZone } = useCreateZone(queryClient);
 	const { form } = useUpdateZone(
 		queryClient,
@@ -39,7 +40,7 @@ function RouteComponent() {
 			nom: "",
 			color: "",
 			polygone: { type: "Polygon", coordinates: [] },
-			id_technicien: "",
+			technicien_id: "",
 		},
 		setDrawerOpen,
 		setSelectedZone,
@@ -165,10 +166,10 @@ function RouteComponent() {
 								</FormContainer>
 							)}
 						</form.Field>
-						<form.Field name="id_technicien">
+						<form.Field name="technicien_id">
 							{(field) => (
 								<FormContainer>
-									<Label htmlFor="id_technicien">Technicien</Label>
+									<Label htmlFor="technicien_id">Technicien</Label>
 									<SelectUser field={field} users={techniciens} />
 								</FormContainer>
 							)}

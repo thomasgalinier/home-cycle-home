@@ -8,4 +8,5 @@ export type User = {
 	role: RoleType;
 	createdAt: Date;
 	entreprise_id?: string;
+	zone?: {id: string}; 
 };

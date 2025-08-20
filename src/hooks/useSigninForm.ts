@@ -1,28 +1,31 @@
-import { useNavigate } from "@tanstack/react-router";
 import { signin } from "@/services/api/auth.ts";
-import { useMutation } from "@tanstack/react-query";
 import { useForm } from "@tanstack/react-form";
-import { SigninSchema } from "@/services/schema/auth.ts";
+import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "@tanstack/react-router";
+import { useState } from "react";
 
 export function useSigninForm() {
 	const navigate = useNavigate();
+	const [error, setError] = useState<string | null>(null);
 	const mutation = useMutation({
 		mutationFn: signin,
-		onSuccess: () => {
+		onSuccess: (data) => {
 			navigate({ to: "/" });
+			if(data.error){
+				setError(data.message);
+			}
+			
 		},
+
 	});
 	const form = useForm({
 		defaultValues: {
 			email: "",
 			password: "",
 		},
-		validators: {
-			onChange: SigninSchema,
-		},
 		onSubmit: (values) => {
 			mutation.mutate(values.value);
 		},
 	});
-	return { form };
+	return { form, error};
 }

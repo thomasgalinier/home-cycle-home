@@ -1,23 +1,24 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+import { FormContainer } from "@/components/FormContainer.tsx";
+import { FormHelperText } from "@/components/FormHelperText";
+import { Button } from "@/components/ui/button.tsx";
 import {
 	Card,
 	CardDescription,
 	CardFooter,
 	CardHeader,
 } from "@/components/ui/card.tsx";
-import { Label } from "@/components/ui/label.tsx";
 import { Input } from "@/components/ui/input.tsx";
-import { Button } from "@/components/ui/button.tsx";
+import { Label } from "@/components/ui/label.tsx";
 import { useSigninForm } from "@/hooks/useSigninForm.ts";
-import { FormContainer } from "@/components/FormContainer.tsx";
 
 export const Route = createFileRoute("/auth/Signin")({
 	component: Signin,
 });
 
 function Signin() {
-	const { form } = useSigninForm();
+	const { form, error } = useSigninForm();
 	return (
 		<Card className="w-full max-w-sm p-2">
 			<CardHeader>Connectez vous</CardHeader>
@@ -50,6 +51,7 @@ function Signin() {
 					</FormContainer>
 				)}
 			</form.Field>
+			<FormHelperText>{error}</FormHelperText>
 			<CardFooter>
 				<Button onClick={form.handleSubmit} className="w-full">
 					Connexion

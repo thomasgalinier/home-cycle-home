@@ -1,4 +1,3 @@
-import { useLocation } from "@tanstack/react-router";
 import {
 	Breadcrumb,
 	BreadcrumbItem,
@@ -7,6 +6,7 @@ import {
 	BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb.tsx";
 import { SidebarTrigger } from "@/components/ui/sidebar.tsx";
+import { useLocation } from "@tanstack/react-router";
 
 export default function Header() {
 	const location = useLocation();
@@ -15,7 +15,7 @@ export default function Header() {
 	return (
 		<header className="flex items-center pb-2 gap-2">
 			<SidebarTrigger className="mr-2" />
-			<Breadcrumb>
+			<Breadcrumb data-testid="breadcrumb">
 				<BreadcrumbList>
 					{pathSegments.map((segment, index) => (
 						<BreadcrumbItem key={segment}>

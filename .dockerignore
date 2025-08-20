@@ -1,0 +1,27 @@
+# Dependencies
+node_modules
+.pnpm-store
+
+# Build output (rebuilt in container)
+dist
+
+# VCS
+.git
+.gitignore
+
+# Editor/IDE
+.vscode
+.idea
+
+# Tests and reports
+coverage
+playwright-report
+test-results
+
+# Docker files themselves (not needed in build context usually)
+Dockerfile
+
+# Environment files (don’t send secrets to the build context)
+.env
+.env.*
+!/.env.example

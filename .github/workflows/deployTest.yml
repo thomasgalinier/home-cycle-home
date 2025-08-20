@@ -1,15 +1,13 @@
-name: Deploy to VPS Prod
+name: Deploy to VPS test
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
-    inputs:
-      confirm:
-        description: "Tape EXACTEMENT: DEPLOY"
-        required: true
-    
 
 concurrency:
-  group: deploy-prod
+  group: deploy-test
   cancel-in-progress: true
 
 jobs:
@@ -38,7 +36,7 @@ jobs:
           ssh "$SSH_USER@$SSH_HOST" 'bash -s' << 'EOF'
           set -euo pipefail
 
-          APP_DIR="/var/www/home-cycle-home"
+          APP_DIR="/var/www/test/home-cycle-home"
           cd "$APP_DIR"
 
           # checkout propre sur la branche main
@@ -50,7 +48,7 @@ jobs:
           export COMPOSE_DOCKER_CLI_BUILD=1
 
           # déploiement sans downtime ni perte de volumes
-          docker compose --env-file .env -p home-cycle-home_prod up -d --build
+          docker compose --env-file .env -p home-cycle-home_test up -d --build
 
           # (optionnel) petit ménage des images dangling
           docker image prune -f || true

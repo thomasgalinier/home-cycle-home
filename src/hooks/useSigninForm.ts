@@ -1,4 +1,5 @@
 import { signin } from "@/services/api/auth.ts";
+import { checkAuthenticationRole } from "@/services/checkAuthentication.ts";
 import { useForm } from "@tanstack/react-form";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
@@ -9,12 +10,14 @@ export function useSigninForm() {
 	const [error, setError] = useState<string | null>(null);
 	const mutation = useMutation({
 		mutationFn: signin,
-		onSuccess: (data) => {
-			navigate({ to: "/" });
-			if(data.error){
+		onSuccess: async (data) => {
+			if (data?.error) {
 				setError(data.message);
+				return;
 			}
-			
+			const role = await checkAuthenticationRole();
+			const isAdmin = role === "ADMIN" || role === "SUPER_ADMIN" || role === "TECHNICIEN";
+			navigate({ to: isAdmin ? "/admin" : "/" });
 		},
 
 	});

@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ClientRouteImport } from './routes/_client'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
+import { Route as R404RouteImport } from './routes/404'
 import { Route as ClientIndexRouteImport } from './routes/_client/index'
 import { Route as AuthSigninRouteImport } from './routes/auth/Signin'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
@@ -35,6 +36,11 @@ const ClientRoute = ClientRouteImport.update({
 } as any)
 const AuthenticatedRoute = AuthenticatedRouteImport.update({
   id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const R404Route = R404RouteImport.update({
+  id: '/404',
+  path: '/404',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ClientIndexRoute = ClientIndexRouteImport.update({
@@ -102,6 +108,7 @@ const AuthenticatedAdminComptesCreateRoute =
   } as any)
 
 export interface FileRoutesByFullPath {
+  '/404': typeof R404Route
   '/auth': typeof AuthRouteWithChildren
   '/auth/Signin': typeof AuthSigninRoute
   '/': typeof ClientIndexRoute
@@ -116,6 +123,7 @@ export interface FileRoutesByFullPath {
   '/admin/planning/': typeof AuthenticatedAdminPlanningIndexRoute
 }
 export interface FileRoutesByTo {
+  '/404': typeof R404Route
   '/auth': typeof AuthRouteWithChildren
   '/auth/Signin': typeof AuthSigninRoute
   '/': typeof ClientIndexRoute
@@ -130,6 +138,7 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/404': typeof R404Route
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/_client': typeof ClientRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
@@ -148,6 +157,7 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/404'
     | '/auth'
     | '/auth/Signin'
     | '/'
@@ -162,6 +172,7 @@ export interface FileRouteTypes {
     | '/admin/planning/'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/404'
     | '/auth'
     | '/auth/Signin'
     | '/'
@@ -175,6 +186,7 @@ export interface FileRouteTypes {
     | '/admin/planning'
   id:
     | '__root__'
+    | '/404'
     | '/_authenticated'
     | '/_client'
     | '/auth'
@@ -192,6 +204,7 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  R404Route: typeof R404Route
   AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
   ClientRoute: typeof ClientRouteWithChildren
   AuthRoute: typeof AuthRouteWithChildren
@@ -218,6 +231,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: ''
       preLoaderRoute: typeof AuthenticatedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/404': {
+      id: '/404'
+      path: '/404'
+      fullPath: '/404'
+      preLoaderRoute: typeof R404RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_client/': {
@@ -362,6 +382,7 @@ const AuthRouteChildren: AuthRouteChildren = {
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
+  R404Route: R404Route,
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
   ClientRoute: ClientRouteWithChildren,
   AuthRoute: AuthRouteWithChildren,

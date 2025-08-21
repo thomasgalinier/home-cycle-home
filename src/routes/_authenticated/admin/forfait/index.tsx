@@ -14,7 +14,7 @@ function RouteComponent() {
 	return (
     <div>
 
-      <Button className="mb-4" onClick={() => navigate({ to: "/forfait/create" })}>Créer un forfait</Button>
+      <Button className="mb-4" onClick={() => navigate({ to: "/admin/forfait/create" })}>Créer un forfait</Button>
 		<div className="flex flex-row gap-2 flex-wrap">
 			{forfaits?.map((forfait: Forfait) => (
 				<div key={forfait.id} >

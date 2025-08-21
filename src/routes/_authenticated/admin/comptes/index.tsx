@@ -133,7 +133,7 @@ function Comptes() {
 						</AlertDialogFooter>
 					</AlertDialogContent>
 				</AlertDialog>
-				<Button onClick={() => navigate({ to: "/comptes/create" })}>
+				<Button onClick={() => navigate({ to: "/admin/comptes/create" })}>
 					Créer un comptes
 				</Button>
 			</div>

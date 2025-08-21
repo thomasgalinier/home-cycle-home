@@ -26,7 +26,6 @@ import {
 	Map,
 	Monitor,
 	Moon,
-	ShoppingBasket,
 	Sun,
 	User,
 	Users,
@@ -48,7 +47,7 @@ import type { User as UserType } from "@/services/type/auth.ts";
 const navigationItems = [
 	{
 		title: "Dashboard",
-		url: "/dashboard",
+		url: "/admin/dashboard",
 		icon: LayoutDashboardIcon,
 	},
 	{
@@ -58,24 +57,24 @@ const navigationItems = [
 		children: [
 			{
 				title: "Liste des comptes",
-				url: "/comptes",
+				url: "/admin/comptes",
 				icon: Users,
 			},
 			{
 				title: "Créer un compte",
-				url: "/comptes/create",
+				url: "/admin/comptes/create",
 				icon: User,
 			},
 		],
 	},
 	{
 		title: "Carte",
-		url: "/carte",
+		url: "/admin/carte",
 		icon: Map,
 	},
 	{
 		title: "Planning",
-		url: "/planning",
+		url: "/admin/planning",
 		icon: Calendar,
 	},
 	{
@@ -85,28 +84,13 @@ const navigationItems = [
 		children: [
 			{
 				title: "Liste des forfaits",
-				url: "/forfait",
+				url: "/admin/forfait",
 				icon: EuroIcon,
 			},
 			{
 				title: "Créer un forfait",
-				url: "/forfait/create",
+				url: "/admin/forfait/create",
 				icon: EuroIcon,
-			},
-		],
-	},
-	{
-		title: "Produits",
-		type: "group",
-		icon: ShoppingBasket,
-		children: [
-			{
-				title: "Liste des produits",
-				url: "/dashboard/produits",
-			},
-			{
-				title: "Créer un produit",
-				url: "/dashboard/produits/create",
 			},
 		],
 	},

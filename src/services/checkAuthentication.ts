@@ -8,3 +8,12 @@ export async function checkAuthentication(): Promise<boolean> {
 		return false;
 	}
 }
+
+export async function checkAuthenticationRole(): Promise<'ADMIN' | 'CLIENT' | 'SUPER_ADMIN' | 'TECHNICIEN' | false> {
+	try {
+		const user = await getMe();
+		return user.role
+	} catch (error) {
+		return false;
+	}
+}

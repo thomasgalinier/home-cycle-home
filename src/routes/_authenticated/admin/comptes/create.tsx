@@ -18,7 +18,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 
-export const Route = createFileRoute("/_authenticated/comptes/create")({
+export const Route = createFileRoute("/_authenticated/admin/comptes/create")({
 	component: RouteComponent,
 });
 function RouteComponent() {
@@ -27,9 +27,9 @@ function RouteComponent() {
 	const [showPassword, setShowPassword] = useState(false);
 
 	return (
-		<Card className="w-3/4 mx-auto">
-			<CardHeader>Création d&apos;un compte admin</CardHeader>
-			<CardContent className="flex flex-col gap-6">
+        <Card className="w-3/4 mx-auto">
+            <CardHeader>Création d&apos;un compte admin</CardHeader>
+            <CardContent className="flex flex-col gap-6">
 				<form
 					onSubmit={(e) => {
 						e.preventDefault();
@@ -96,7 +96,7 @@ function RouteComponent() {
 									if (!value.trim()) return "L'email est requis";
 									if (!/\S+@\S+\.\S+/.test(value))
 										return "Format d'email invalide";
-									return undefined;
+									return undefined
 								},
 							}}
 						>
@@ -126,7 +126,7 @@ function RouteComponent() {
 									if (!value.trim()) return "Le mot de passe est requis";
 									if (value.length < 8)
 										return "Le mot de passe doit contenir au moins 8 caractères";
-									return undefined;
+									return undefined
 								},
 							}}
 						>
@@ -198,7 +198,7 @@ function RouteComponent() {
 									if (!value.trim()) return "Le téléphone est requis";
 									if (!/^(\+33|0)[1-9](\d{8})$/.test(value))
 										return "Format de téléphone invalide";
-									return undefined;
+									return undefined
 								},
 							}}
 						>
@@ -227,6 +227,6 @@ function RouteComponent() {
 					</div>
 				</form>
 			</CardContent>
-		</Card>
-	);
+        </Card>
+    )
 }

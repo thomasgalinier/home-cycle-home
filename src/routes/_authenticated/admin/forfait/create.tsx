@@ -18,7 +18,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { EuroIcon } from "lucide-react";
 
-export const Route = createFileRoute("/_authenticated/forfait/create")({
+export const Route = createFileRoute("/_authenticated/admin/forfait/create")({
 	component: RouteComponent,
 });
 
@@ -166,5 +166,5 @@ function RouteComponent() {
 				<Button onClick={form.handleSubmit}>Créer le forfait</Button>
 			</CardContent>
 		</Card>
-	);
+	)
 }

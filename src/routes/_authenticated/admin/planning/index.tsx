@@ -47,7 +47,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import { useQueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-export const Route = createFileRoute("/_authenticated/planning/")({
+export const Route = createFileRoute("/_authenticated/admin/planning/")({
 	component: PlanningPage,
 });
 const time = [
@@ -96,13 +96,13 @@ export default function PlanningPage() {
 		technicien,
 		techniciens,
 		queryClient,
-	);
+	)
 	const { data: interventions = [] } =
 		useGetInterventionByTechnicien(selectedTechnicienId);
 	const { form: deleteForm } = useDeleteBulkIntervention(
 		queryClient,
 		technicien,
-	);
+	)
 	const { form: updateForm } = useUpdateIntervention(event as InterventionUpdate, queryClient);
 	const { data: clients } = useGetClient();
 	const { data: forfaits } = useGetForfait();
@@ -384,5 +384,5 @@ export default function PlanningPage() {
 				</DialogContent>
 			</Dialog>
 		</div>
-	);
+	)
 }

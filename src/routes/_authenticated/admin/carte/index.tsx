@@ -19,7 +19,7 @@ import type { DrawEvents } from "leaflet";
 import { useState } from "react";
 import { EditControl } from "react-leaflet-draw";
 
-export const Route = createFileRoute("/_authenticated/carte/")({
+export const Route = createFileRoute("/_authenticated/admin/carte/")({
 	component: RouteComponent,
 });
 function RouteComponent() {
@@ -44,7 +44,7 @@ function RouteComponent() {
 		},
 		setDrawerOpen,
 		setSelectedZone,
-	);
+	)
 
 	const onDrawCreated = (event: DrawEvents.Created) => {
 		const { layer, layerType } = event;
@@ -57,9 +57,9 @@ function RouteComponent() {
 					type: "Polygon",
 					coordinates: [polygon.geometry.coordinates[0]],
 				},
-			});
+			})
 		}
-	};
+	}
 	return (
 		<>
 			<MapContainer
@@ -101,8 +101,8 @@ function RouteComponent() {
 										}
 										eventHandlers={{
 											click: () => {
-												setSelectedZone(zone);
-												setDrawerOpen(true);
+												setSelectedZone(zone)
+												setDrawerOpen(true)
 											},
 										}}
 									/>
@@ -157,7 +157,7 @@ function RouteComponent() {
 											placeholder="#000000"
 											value={field.state.value}
 											onChange={(e) => {
-												field.handleChange(e.target.value);
+												field.handleChange(e.target.value)
 											}}
 											className="flex-1"
 											maxLength={7}
@@ -188,5 +188,5 @@ function RouteComponent() {
 				</DrawerContent>
 			</Drawer>
 		</>
-	);
+	)
 }

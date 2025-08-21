@@ -2,11 +2,11 @@ import { expect } from "@playwright/test";
 import { test } from "./setup-test";
 
 test.beforeEach(async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/admin');
 });
 
 test('verifie la redirection vers dashboard', async ({page}) => {
-    await expect(page).toHaveURL('/dashboard');
+    await expect(page).toHaveURL('admin/dashboard');
 });
 
 test("verifie l'afichage de la sidebar et du breadcrumb", async ({page})=>{
@@ -68,15 +68,15 @@ test('verifie la navigation entre les différentes pages', async({page, context}
     //Comptes
     await page.getByRole('button', { name: 'Comptes' }).click();
     await page.getByRole('link', { name: 'Liste des comptes' }).click();
-    await expect(page).toHaveURL('/comptes');
+    await expect(page).toHaveURL('admin/comptes');
     await expect(page.getByTestId('breadcrumb')).toContainText('comptes');
 
     await page.getByRole('link', { name: 'Créer un compte' }).click();
-    await expect(page).toHaveURL('/comptes/create');
+    await expect(page).toHaveURL('admin/comptes/create');
     await expect(page.getByTestId('breadcrumb')).toContainText('comptescreate');
 
     //Carte
     await page.getByRole('link', { name: 'Carte' }).click();
-    await expect(page).toHaveURL('/carte');
+    await expect(page).toHaveURL('admin/carte');
     await expect(page.getByTestId('breadcrumb')).toContainText('carte');
 });

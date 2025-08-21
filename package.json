@@ -11,10 +11,12 @@
     "test": "vitest run",
     "format": "biome format",
     "lint": "biome lint",
+    "lint:fix": "biome lint --apply && biome format --write",
     "check": "biome check",
     "test:e2e": "playwright test --config=playwright.config.ts",
     "test:e2e:debug": "playwright test --config=playwright.config.ts --debug",
     "test:e2e:ui": "playwright test --config=playwright.config.ts --ui"
+    
   },
   "dependencies": {
     "@fullcalendar/core": "^6.1.19",

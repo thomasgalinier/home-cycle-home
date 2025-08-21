@@ -66,10 +66,10 @@ test('Vérifier la redirection si non connecté, la connexion et la déconnexion
   });
 
   
-  await page.goto('/');
+  await page.goto('/admin');
+  await expect(page.getByText('Votre vélo réparé sans bouger de chez vous')).toBeVisible();
+  await page.getByRole('button', { name: 'Connexion' }).click();
   await expect(page.getByText('Connectez vous')).toBeVisible();
-
-  
   await page.getByRole('textbox', { name: 'E-mail' }).fill('test@example.com');
   await page.getByRole('textbox', { name: 'Mot de passe' }).fill('password');
 
@@ -80,7 +80,7 @@ test('Vérifier la redirection si non connecté, la connexion et la déconnexion
     page.getByRole('button', { name: 'Connexion' }).click(),
   ]);
 
-  await expect(page).toHaveURL('/dashboard');
+  await expect(page).toHaveURL('admin/dashboard');
   await page.getByRole('button', { name: 'Jane.Doe' }).click()
   await Promise.all([
     page.waitForResponse(r => r.url().includes('/auth/logout') && r.request().method() === 'POST'),
@@ -106,7 +106,7 @@ test('vérifier le cas si un user ce connecte avec le mauvais email/mdp', async 
     }
   });
 
-  await page.goto('/');
+  await page.goto('/auth/Signin');
   await expect(page.getByText('Connectez vous')).toBeVisible();
 
   await page.getByRole('textbox', { name: 'E-mail' }).fill('wrong@example.com');

@@ -35,3 +35,15 @@ export async function logout() {
 	});
 	await response.json();
 }
+
+export async function signup(user: { nom: string, prenom: string, email: string, password:string, telephone: string}) {
+	const response = await fetch(`${API_URL}/auth/client/signup`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		credentials: "include",
+		body: JSON.stringify(user),
+	});
+	return await response.json();
+}

@@ -14,6 +14,7 @@ import { Route as ClientRouteImport } from './routes/_client'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as R404RouteImport } from './routes/404'
 import { Route as ClientIndexRouteImport } from './routes/_client/index'
+import { Route as AuthSignupRouteImport } from './routes/auth/signup'
 import { Route as AuthSigninRouteImport } from './routes/auth/Signin'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
 import { Route as AuthenticatedAdminPlanningRouteImport } from './routes/_authenticated/admin/planning'
@@ -47,6 +48,11 @@ const ClientIndexRoute = ClientIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => ClientRoute,
+} as any)
+const AuthSignupRoute = AuthSignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => AuthRoute,
 } as any)
 const AuthSigninRoute = AuthSigninRouteImport.update({
   id: '/Signin',
@@ -111,6 +117,7 @@ export interface FileRoutesByFullPath {
   '/404': typeof R404Route
   '/auth': typeof AuthRouteWithChildren
   '/auth/Signin': typeof AuthSigninRoute
+  '/auth/signup': typeof AuthSignupRoute
   '/': typeof ClientIndexRoute
   '/admin/dashboard': typeof AuthenticatedAdminDashboardRoute
   '/admin/planning': typeof AuthenticatedAdminPlanningRouteWithChildren
@@ -126,6 +133,7 @@ export interface FileRoutesByTo {
   '/404': typeof R404Route
   '/auth': typeof AuthRouteWithChildren
   '/auth/Signin': typeof AuthSigninRoute
+  '/auth/signup': typeof AuthSignupRoute
   '/': typeof ClientIndexRoute
   '/admin/dashboard': typeof AuthenticatedAdminDashboardRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
@@ -143,6 +151,7 @@ export interface FileRoutesById {
   '/_client': typeof ClientRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
   '/auth/Signin': typeof AuthSigninRoute
+  '/auth/signup': typeof AuthSignupRoute
   '/_client/': typeof ClientIndexRoute
   '/_authenticated/admin/dashboard': typeof AuthenticatedAdminDashboardRoute
   '/_authenticated/admin/planning': typeof AuthenticatedAdminPlanningRouteWithChildren
@@ -160,6 +169,7 @@ export interface FileRouteTypes {
     | '/404'
     | '/auth'
     | '/auth/Signin'
+    | '/auth/signup'
     | '/'
     | '/admin/dashboard'
     | '/admin/planning'
@@ -175,6 +185,7 @@ export interface FileRouteTypes {
     | '/404'
     | '/auth'
     | '/auth/Signin'
+    | '/auth/signup'
     | '/'
     | '/admin/dashboard'
     | '/admin'
@@ -191,6 +202,7 @@ export interface FileRouteTypes {
     | '/_client'
     | '/auth'
     | '/auth/Signin'
+    | '/auth/signup'
     | '/_client/'
     | '/_authenticated/admin/dashboard'
     | '/_authenticated/admin/planning'
@@ -246,6 +258,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof ClientIndexRouteImport
       parentRoute: typeof ClientRoute
+    }
+    '/auth/signup': {
+      id: '/auth/signup'
+      path: '/signup'
+      fullPath: '/auth/signup'
+      preLoaderRoute: typeof AuthSignupRouteImport
+      parentRoute: typeof AuthRoute
     }
     '/auth/Signin': {
       id: '/auth/Signin'
@@ -373,10 +392,12 @@ const ClientRouteWithChildren =
 
 interface AuthRouteChildren {
   AuthSigninRoute: typeof AuthSigninRoute
+  AuthSignupRoute: typeof AuthSignupRoute
 }
 
 const AuthRouteChildren: AuthRouteChildren = {
   AuthSigninRoute: AuthSigninRoute,
+  AuthSignupRoute: AuthSignupRoute,
 }
 
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)

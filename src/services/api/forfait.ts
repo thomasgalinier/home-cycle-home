@@ -1,8 +1,9 @@
 import type { Forfait } from "../type/forfait";
 
 const API_URL = import.meta.env.VITE_API_URL;
-export async function getForfait() {
-	const response = await fetch(`${API_URL}/forfait`, {
+export async function getForfait(titre?: string) {
+	const params = new URLSearchParams(titre ? { titre } : {}).toString();
+	const response = await fetch(`${API_URL}/forfait?${params}`, {
 		method: "GET",
 		headers: {
 			"Content-Type": "application/json",

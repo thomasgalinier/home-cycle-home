@@ -24,7 +24,7 @@ function RouteComponent() {
 
 	const { form } = useCreateClientAccount();
 	return (
-		<Card className="w-3/4 mx-auto">
+		<Card className="m-auto">
 			<CardHeader>Inscrivez vous</CardHeader>
 			<CardDescription>
 				Créez un compte client pour accéder à toutes les fonctionnalités.

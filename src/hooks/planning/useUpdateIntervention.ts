@@ -5,7 +5,6 @@ import { useMutation, type useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 export function useUpdateIntervention(intervention: InterventionUpdate, queryClient: ReturnType<typeof useQueryClient>) {
-	console.log(intervention);
 	const mutation = useMutation({
 		mutationFn: updateIntervention,
 		onSuccess: () => {
@@ -29,6 +28,9 @@ export function useUpdateIntervention(intervention: InterventionUpdate, queryCli
 			detail: intervention?.detail || "",
 			forfait_id: intervention?.forfait_intervention?.id_forfait || "",
 			zone_id: intervention?.zone_id || "",
+		},
+		onSubmitInvalid: (errors) => {
+			console.log(errors);
 		},
 		onSubmit: (values) => {
 			mutation.mutate({ id: intervention.id, ...values.value });

@@ -1,9 +1,9 @@
 import { getForfait } from "@/services/api/forfait";
 import { useQuery } from "@tanstack/react-query";
 
-export function useGetForfait() {
+export function useGetForfait(titre?: string) {
     return useQuery({
-        queryKey: ["forfait"],
-        queryFn: getForfait,
+        queryKey: ["forfait", titre],
+        queryFn:() => getForfait(titre),
     })
 }

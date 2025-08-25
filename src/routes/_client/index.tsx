@@ -1,17 +1,23 @@
+import { AdresseComplete } from "@/components/AdresseComplete";
 import { CardService } from "@/components/Client/CardService";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { createFileRoute } from "@tanstack/react-router";
+import { useMe } from "@/hooks/comptes/useMe";
+import { Link, createFileRoute } from "@tanstack/react-router";
 import { CalendarIcon, ClockIcon, MapPinIcon } from "lucide-react";
+import { useState } from "react";
 
 export const Route = createFileRoute("/_client/")({
 	component: RouteComponent,
 });
 
 function RouteComponent() {
+	const { data: user } = useMe();
+	console.log("user", user);
+	const [adresse, setAdresse] = useState("");
 	return (
 		<main>
-			<section className="flex flex-col lg:flex-row lg:items-stretch gap-24 bg-blue-100 px-24 h-3/4 content-center">
+			<section className="flex flex-col lg:flex-row lg:items-stretch gap-24 bg-blue-50 px-24 h-1/2 content-center">
 				<div className="lg:w-1/2 flex gap-5 flex-col m-auto py-10 lg:p-0">
 					<h1 className="font-bold text-5xl">
 						Votre vélo réparé <br /> sans bouger de chez vous
@@ -22,9 +28,20 @@ function RouteComponent() {
 						en toute sérénité.
 					</p>
 					<div>
-						<Button>
-							<CalendarIcon />
-							Réservez maintenant
+						<p className="text-xs">Vérifier si nos technicien couvre votre adresse:</p>
+						<AdresseComplete
+							onSelect={(suggestion) => console.log(suggestion)}
+							value={adresse}
+							setValue={setAdresse}
+						/>
+					</div>
+					<div className="flex flex-col gap-2">
+						<p className="text-xs ">Pour réserver connectez-vous ou inscrivez-vous </p>
+						<Button disabled={!user} className="w-fit" asChild>
+							<Link to="/reservation">
+								<CalendarIcon />
+								Réservez maintenant
+							</Link>
 						</Button>
 					</div>
 					<div className="flex gap-2">
@@ -78,7 +95,8 @@ function RouteComponent() {
 					/>
 					<CardService
 						title="Montage & réglages"
-						description="Assemblage complet et ajustements précis pour un vélo prêt à rouler dès la première sortie."/>
+						description="Assemblage complet et ajustements précis pour un vélo prêt à rouler dès la première sortie."
+					/>
 				</div>
 			</section>
 		</main>

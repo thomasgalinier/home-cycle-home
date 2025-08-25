@@ -16,6 +16,7 @@ import { Route as R404RouteImport } from './routes/404'
 import { Route as ClientIndexRouteImport } from './routes/_client/index'
 import { Route as AuthSignupRouteImport } from './routes/auth/signup'
 import { Route as AuthSigninRouteImport } from './routes/auth/Signin'
+import { Route as ClientReservationRouteImport } from './routes/_client/reservation'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
 import { Route as AuthenticatedAdminPlanningRouteImport } from './routes/_authenticated/admin/planning'
 import { Route as AuthenticatedAdminDashboardRouteImport } from './routes/_authenticated/admin/dashboard'
@@ -58,6 +59,11 @@ const AuthSigninRoute = AuthSigninRouteImport.update({
   id: '/Signin',
   path: '/Signin',
   getParentRoute: () => AuthRoute,
+} as any)
+const ClientReservationRoute = ClientReservationRouteImport.update({
+  id: '/reservation',
+  path: '/reservation',
+  getParentRoute: () => ClientRoute,
 } as any)
 const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   id: '/admin/',
@@ -116,6 +122,7 @@ const AuthenticatedAdminComptesCreateRoute =
 export interface FileRoutesByFullPath {
   '/404': typeof R404Route
   '/auth': typeof AuthRouteWithChildren
+  '/reservation': typeof ClientReservationRoute
   '/auth/Signin': typeof AuthSigninRoute
   '/auth/signup': typeof AuthSignupRoute
   '/': typeof ClientIndexRoute
@@ -132,6 +139,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/404': typeof R404Route
   '/auth': typeof AuthRouteWithChildren
+  '/reservation': typeof ClientReservationRoute
   '/auth/Signin': typeof AuthSigninRoute
   '/auth/signup': typeof AuthSignupRoute
   '/': typeof ClientIndexRoute
@@ -150,6 +158,7 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/_client': typeof ClientRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
+  '/_client/reservation': typeof ClientReservationRoute
   '/auth/Signin': typeof AuthSigninRoute
   '/auth/signup': typeof AuthSignupRoute
   '/_client/': typeof ClientIndexRoute
@@ -168,6 +177,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/404'
     | '/auth'
+    | '/reservation'
     | '/auth/Signin'
     | '/auth/signup'
     | '/'
@@ -184,6 +194,7 @@ export interface FileRouteTypes {
   to:
     | '/404'
     | '/auth'
+    | '/reservation'
     | '/auth/Signin'
     | '/auth/signup'
     | '/'
@@ -201,6 +212,7 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/_client'
     | '/auth'
+    | '/_client/reservation'
     | '/auth/Signin'
     | '/auth/signup'
     | '/_client/'
@@ -272,6 +284,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/auth/Signin'
       preLoaderRoute: typeof AuthSigninRouteImport
       parentRoute: typeof AuthRoute
+    }
+    '/_client/reservation': {
+      id: '/_client/reservation'
+      path: '/reservation'
+      fullPath: '/reservation'
+      preLoaderRoute: typeof ClientReservationRouteImport
+      parentRoute: typeof ClientRoute
     }
     '/_authenticated/admin/': {
       id: '/_authenticated/admin/'
@@ -380,10 +399,12 @@ const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
 )
 
 interface ClientRouteChildren {
+  ClientReservationRoute: typeof ClientReservationRoute
   ClientIndexRoute: typeof ClientIndexRoute
 }
 
 const ClientRouteChildren: ClientRouteChildren = {
+  ClientReservationRoute: ClientReservationRoute,
   ClientIndexRoute: ClientIndexRoute,
 }
 

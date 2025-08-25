@@ -27,3 +27,15 @@ export function msToHHMM(ms: number): string {
     }
     return null;
   };
+
+
+
+  	export const getFirstWeekday = (date: Date) => {
+		const day = date.getDay();
+		if (day === 6) {
+			date.setDate(date.getDate() + 2);
+		} else if (day === 0) {
+			date.setDate(date.getDate() + 1);
+		}
+		return date;
+	};

@@ -35,6 +35,8 @@ export const deleteBulkIntervention = async ({technicien_id, date_debut, date_fi
 }
 
 export const updateIntervention = async (intervention: InterventionUpdate) => {
+    console.log(intervention);
+    
     const response = await fetch(`${API_URL}/intervention/${intervention.id}`, {
         method: 'PATCH',
         headers: {
@@ -45,6 +47,7 @@ export const updateIntervention = async (intervention: InterventionUpdate) => {
     })
     return await response.json()
 }
+
 export function deleteIntervention(id: string) {
     return fetch(`${API_URL}/intervention/${id}`, {
         method: 'DELETE',
@@ -53,4 +56,15 @@ export function deleteIntervention(id: string) {
         },
         credentials: 'include',
     })
+}
+export async function findUnplannedInterventions(query: { zone_id?: string; jour?: string }) {
+    const params = new URLSearchParams(query).toString();
+    const response = await fetch(`${API_URL}/intervention/unplanned?${params}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+    });
+    return await response.json();
 }

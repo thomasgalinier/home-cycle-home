@@ -18,7 +18,7 @@ export function Header() {
 	const { mutate: mutateLogout } = useLogout();
 
 	return (
-		<header className=" flex w-full h-[64px] justify-between px-10 items-center py-10 ">
+		<header className=" flex w-full h-[64px] justify-between px-10 items-center py-5 ">
 			<Link to="/" className="font-bold flex flex-row items-center gap-4">
 				<BikeIcon className="bg-blue-200 p-2 rounded-xl" size={40} />
 				<h2>HomeCycl'Home</h2>

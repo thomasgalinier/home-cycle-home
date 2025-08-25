@@ -44,8 +44,8 @@ export type Intervention = {
 }
 export type InterventionUpdate = {
     id: string;
-    debut: string;
-    fin: string;
+    debut?: string;
+    fin?: string;
     adresse: string | null;
     statut: Statut;
     client_id: string | null;
@@ -54,6 +54,16 @@ export type InterventionUpdate = {
     zone_id: string | null;
     forfait_id: string | null;
     forfait_intervention?: ForfaitIntervention | null;
+}
+export type BookIntervention = {
+    id: string;
+    adresse: string | null;
+    client_id: string | null;
+    detail: string | null;
+    forfait_id: string | null;
+    technicien_id: string | null;
+    zone_id: string | null;
+    statut: 'PLANNED';
 }
 type ForfaitIntervention = {
     duree: number;

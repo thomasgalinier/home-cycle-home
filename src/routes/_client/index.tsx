@@ -13,8 +13,7 @@ export const Route = createFileRoute("/_client/")({
 
 function RouteComponent() {
 	const { data: user } = useMe();
-	console.log("user", user);
-	const [adresse, setAdresse] = useState("");
+	
 	return (
 		<main>
 			<section className="flex flex-col lg:flex-row lg:items-stretch gap-24 bg-blue-50 px-24 h-1/2 content-center">
@@ -27,14 +26,6 @@ function RouteComponent() {
 						de travail. Réservez en ligne, gagnez du temps et reprenez la route
 						en toute sérénité.
 					</p>
-					<div>
-						<p className="text-xs">Vérifier si nos technicien couvre votre adresse:</p>
-						<AdresseComplete
-							onSelect={(suggestion) => console.log(suggestion)}
-							value={adresse}
-							setValue={setAdresse}
-						/>
-					</div>
 					<div className="flex flex-col gap-2">
 						<p className="text-xs ">Pour réserver connectez-vous ou inscrivez-vous </p>
 						<Button disabled={!user} className="w-fit" asChild>

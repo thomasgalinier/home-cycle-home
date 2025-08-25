@@ -66,7 +66,7 @@ function RouteComponent() {
 				center={[45.75, 4.85]}
 				zoom={13}
 				scrollWheelZoom={true}
-				className="mx-auto"
+				className="mx-auto z-10"
 				style={{ height: "95%", width: "100%" }}
 			>
 				<TileLayer

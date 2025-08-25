@@ -52,10 +52,10 @@ export function Header() {
 				</DropdownMenu>
 			) : (
 				<div className="flex flex-row gap-2">
-					<Button className="hidden md:block" variant="ghost" asChild>
+					<Button asChild>
 						<Link to="/auth/Signin">Connexion</Link>
 					</Button>
-					<Button asChild><Link to="/auth/signup">Inscription</Link></Button>
+					<Button className="hidden md:block" asChild variant='ghost'><Link to="/auth/signup">Inscription</Link></Button>
 				</div>
 			)}
 		</header>

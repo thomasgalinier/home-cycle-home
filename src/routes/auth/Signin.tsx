@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { Link, createFileRoute } from "@tanstack/react-router";
 
 import { FormContainer } from "@/components/FormContainer.tsx";
 import { FormHelperText } from "@/components/FormHelperText";
@@ -52,10 +52,11 @@ function Signin() {
 				)}
 			</form.Field>
 			<FormHelperText>{error}</FormHelperText>
-			<CardFooter>
+			<CardFooter className="flex flex-col gap-2">
 				<Button onClick={form.handleSubmit} className="w-full">
 					Connexion
 				</Button>
+				<p className="text-xs">Pas encore de compte ? <Button variant="link"><Link to="/auth/signup">Inscrivez-vous</Link></Button></p>
 			</CardFooter>
 		</Card>
 	);

@@ -11,7 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useCreateClientAccount } from "@/hooks/comptes/useCreateClientAccount";
-import { createFileRoute } from "@tanstack/react-router";
+import { Link, createFileRoute } from "@tanstack/react-router";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 
@@ -175,8 +175,9 @@ function RouteComponent() {
 					)}
 				</form.Field>
 			</CardContent>
-			<CardFooter>
+			<CardFooter className="flex flex-col gap-2">
 				<Button className="w-full" onClick={form.handleSubmit}>Créer le compte</Button>
+				<p className="text-xs">Déjà un compte ? <Button variant="link"><Link to="/auth/Signin">Connectez-vous</Link></Button></p>
 			</CardFooter>
 		</Card>
 	);

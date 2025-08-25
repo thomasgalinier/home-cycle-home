@@ -68,7 +68,7 @@ test('Vérifier la redirection si non connecté, la connexion et la déconnexion
   
   await page.goto('/admin');
   await expect(page.getByText('Votre vélo réparé sans bouger de chez vous')).toBeVisible();
-  await page.getByRole('button', { name: 'Connexion' }).click();
+  await page.getByRole('link', { name: 'Connexion' }).click();
   await expect(page.getByText('Connectez vous')).toBeVisible();
   await page.getByRole('textbox', { name: 'E-mail' }).fill('test@example.com');
   await page.getByRole('textbox', { name: 'Mot de passe' }).fill('password');

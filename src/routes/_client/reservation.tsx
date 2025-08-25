@@ -27,7 +27,7 @@ export const Route = createFileRoute("/_client/reservation")({
 
 function RouteComponent() {
 	const queryClient = useQueryClient();
-	const { form, mutation } = useBookIntervention(queryClient);
+	const { form } = useBookIntervention(queryClient);
 
 	const initialDate = getFirstWeekday(new Date());
 	const [date, setDate] = useState(initialDate.toISOString().slice(0, 10));

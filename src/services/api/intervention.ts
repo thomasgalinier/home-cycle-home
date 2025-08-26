@@ -68,3 +68,30 @@ export async function findUnplannedInterventions(query: { zone_id?: string; jour
     });
     return await response.json();
 }
+
+export async function findPlannedInterventions(query: { zone_id?: string; jour?: string; technicien_id?: string }) {
+    const params = new URLSearchParams(query).toString();
+    const response = await fetch(`${API_URL}/intervention/planned?${params}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+    });
+    return await response.json();
+}
+export async function listClientInterventions(query:{id:string, page?:number, limit?:number}) {
+    const { id, page, limit } = query;
+    const params = new URLSearchParams({
+        ...(page !== undefined ? { page: String(page) } : {}),
+        ...(limit !== undefined ? { limit: String(limit) } : {}),
+    }).toString();
+    const response = await fetch(`${API_URL}/intervention/client/${id}?${params}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+    });
+    return await response.json();
+}

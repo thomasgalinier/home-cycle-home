@@ -1,4 +1,5 @@
 
+import { cn } from "@/lib/utils";
 import type { User } from "@/services/type/auth";
 import type { AnyFieldApi } from "@tanstack/react-form";
 import { Avatar, AvatarImage } from "./ui/avatar";
@@ -16,15 +17,17 @@ type SelectUserProps = {
 	value?: string;
 	setValue?: (value: string) => void;
 	isLoading?: boolean;
+	className?: string;
 };
-export default function SelectUser({field, users, value, setValue, isLoading}: SelectUserProps) {
+export default function SelectUser({field, users, value, setValue, isLoading, className}: SelectUserProps) {
 
 	return (
 		<Select
 			value={field?.state.value || value}
 			onValueChange={(value) => {field ? field.handleChange(value) : setValue?.(value)}}
+			
 		>
-			<SelectTrigger className="w-full">
+			<SelectTrigger className={cn("w-full", className)}>
 				<SelectValue placeholder="Selectionne un utilisateur" />
 			</SelectTrigger>
 			<SelectContent className="w-full z-[10000]">

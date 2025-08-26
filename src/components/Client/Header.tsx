@@ -23,7 +23,16 @@ export function Header() {
 				<BikeIcon className="bg-blue-200 p-2 rounded-xl" size={40} />
 				<h2>HomeCycl'Home</h2>
 			</Link>
+
 			{user ? (
+				<div className="flex flex-row gap-4 items-center">
+					<nav>
+						<Button variant='ghost' asChild>
+							<Link to="/myreservation">
+								Mes interventions
+							</Link>
+						</Button>
+					</nav>
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
 						<Avatar className="cursor-pointer size-7">
@@ -50,6 +59,7 @@ export function Header() {
 						</DropdownMenuItem>
 					</DropdownMenuContent>
 				</DropdownMenu>
+				</div>
 			) : (
 				<div className="flex flex-row gap-2">
 					<Button asChild>

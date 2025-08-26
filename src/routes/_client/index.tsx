@@ -1,11 +1,9 @@
-import { AdresseComplete } from "@/components/AdresseComplete";
 import { CardService } from "@/components/Client/CardService";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useMe } from "@/hooks/comptes/useMe";
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { CalendarIcon, ClockIcon, MapPinIcon } from "lucide-react";
-import { useState } from "react";
 
 export const Route = createFileRoute("/_client/")({
 	component: RouteComponent,

@@ -1,5 +1,5 @@
 import { updateIntervention } from "@/services/api/intervention";
-import type { InterventionUpdate } from "@/services/type/intervention";
+import type { InterventionUpdate, Statut } from "@/services/type/intervention";
 import { useForm } from "@tanstack/react-form";
 import { useMutation, type useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -33,7 +33,11 @@ export function useUpdateIntervention(intervention: InterventionUpdate, queryCli
 			console.log(errors);
 		},
 		onSubmit: (values) => {
-			mutation.mutate({ id: intervention.id, ...values.value });
+			mutation.mutate({ 
+				id: intervention.id, 
+				...values.value, 
+				statut: values.value.statut as Statut 
+			});
 			
 		},
 	});

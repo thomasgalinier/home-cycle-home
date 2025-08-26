@@ -46,13 +46,13 @@ export type InterventionUpdate = {
     id: string;
     debut?: string;
     fin?: string;
-    adresse: string | null;
-    statut: Statut;
-    client_id: string | null;
-    technicien_id: string | null;
-    detail: string | null;
-    zone_id: string | null;
-    forfait_id: string | null;
+    adresse?: string | null;
+    statut?: Statut;
+    client_id?: string | null;
+    technicien_id?: string | null;
+    detail?: string | null;
+    zone_id?: string | null;
+    forfait_id?: string | null;
     forfait_intervention?: ForfaitIntervention | null;
 }
 export type BookIntervention = {
